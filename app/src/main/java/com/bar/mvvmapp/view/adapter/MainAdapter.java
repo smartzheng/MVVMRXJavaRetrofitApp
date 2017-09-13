@@ -1,4 +1,4 @@
-package com.bar.mvvmapp.adapter;
+package com.bar.mvvmapp.view.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import com.bar.mvvmapp.R;
 import com.bar.mvvmapp.databinding.ItemMovieBinding;
 import com.bar.mvvmapp.model.Bean.MovieBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,8 +20,8 @@ import java.util.List;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.BindingHolder> {
     private List<MovieBean.SubjectsBean> mMovies;
 
-    public MainAdapter(List<MovieBean.SubjectsBean> movies) {
-        mMovies = movies;
+    public MainAdapter() {
+        mMovies = new ArrayList<>();
     }
 
     @Override
@@ -39,6 +40,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.BindingHolder>
         return mMovies.size();
     }
 
+    public void addMovieSubjects(List<MovieBean.SubjectsBean> subjects) {
+        mMovies.addAll(subjects);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 基本为固定写法
+     */
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private ItemMovieBinding binding;
 
@@ -51,5 +60,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.BindingHolder>
             binding.setItem(item);
             binding.executePendingBindings();
         }
+    }
+    public void clearMovieSubjects(){
+        mMovies.clear();
     }
 }

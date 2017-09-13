@@ -3,11 +3,13 @@
 
     <data>
 
-        <import type="com.bar.mvvmapp.model.Bean.MovieBean"/>
+        <import type="com.bar.mvvmapp.viewmodel.MainViewModel"/>
+
+        <import type="android.view.View"/>
 
         <variable
-            name="movie"
-            type="MovieBean"/>
+            name="viewModel"
+            type="MainViewModel"/>
     </data>
 
     <LinearLayout
@@ -18,19 +20,54 @@
         tools:context="com.bar.mvvmapp.view.MainActivity">
 
         <TextView
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@{movie.getTitle}"/>
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@{viewModel.mMovieBean.getTitle}"
+            android:textSize="20dp"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="@{viewModel.mLoadMoreVisibility}">
+
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="加载中..."/>
+
+
+        </LinearLayout>
+
     </LinearLayout>
 </layout>

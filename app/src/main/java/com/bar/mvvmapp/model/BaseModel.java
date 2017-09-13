@@ -14,9 +14,10 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by smartzheng on 2017/9/12.
+ * 利用抽象类和泛型便于扩展
  */
 
-public abstract class BaseModel<T> {
+public abstract class BaseModel<T,P> {
     private RequestListener<T> mListener;
     public static DoubanApi sApi;
 
@@ -34,10 +35,10 @@ public abstract class BaseModel<T> {
 
     }
 
-    public abstract Observable<T> getObservable();
+    public abstract Observable<T> getObservable(P param);
 
-    public void getData() {
-        getObservable()
+    protected void getData(P param) {
+        getObservable(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<T>() {
@@ -57,4 +58,13 @@ public abstract class BaseModel<T> {
                     }
                 });
     }
+    public void initData(){
+        getData(getInitParam());
+    }
+    public void getMoreData(){
+        getData(getMoreParam());
+    }
+    protected abstract P getMoreParam();
+
+    protected abstract P getInitParam();
 }

@@ -34,15 +34,20 @@ public class MainActivity extends AutoLayoutActivity implements SwipeRefreshLayo
         mBinding.refreshLayout.setOnRefreshListener(this);
         mBinding.recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int lastVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                    if (!mBinding.refreshLayout.isRefreshing()
+                            && mBinding.recyclerview.getAdapter().getItemCount() == lastVisibleItem + 1) {
+                        mMainViewModel.getMoreMovies();
+                    }
+                }
+            }
+
+            @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-
-                if (!mBinding.refreshLayout.isRefreshing()
-                        && mBinding.recyclerview.getAdapter().getItemCount() == lastVisibleItem + 1) {
-                    mMainViewModel.getMoreMovies();
-                }
             }
         });
         mMainViewModel = new MainViewModel(adapter, this);

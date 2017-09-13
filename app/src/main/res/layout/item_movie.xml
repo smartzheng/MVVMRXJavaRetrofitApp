@@ -6,7 +6,7 @@
     <data>
 
         <import type="com.bar.mvvmapp.model.Bean.MovieBean.SubjectsBean"/>
-
+        <import type="android.view.View" />
         <variable
             name="item"
             type="SubjectsBean"/>
@@ -53,7 +53,7 @@
                     android:text="@{item.title}"
                     />
 
-                <RatingBar
+                <android.support.v7.widget.AppCompatRatingBar
                     android:id="@+id/rt_rating"
                     style="@style/Base.Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
@@ -64,7 +64,8 @@
                     android:layout_toRightOf="@+id/iv_image"
                     android:maxHeight="48px"
                     android:minHeight="48px"
-                    android:visibility="gone"/>
+                    android:visibility="@{item.rating.average==0 ? View.INVISIBLE : View.VISIBLE}"
+                    android:rating="@{item.rating.average/2.0f}"/>
 
                 <TextView
                     android:id="@+id/tv_no_rating"
@@ -75,7 +76,8 @@
                     android:layout_marginTop="20px"
                     android:layout_toRightOf="@+id/iv_image"
                     android:text="暂无评分"
-                    android:visibility="gone"/>
+                    android:visibility="@{item.rating.average!=0 ? View.INVISIBLE : View.VISIBLE}"
+                    />
 
                 <TextView
                     android:id="@+id/tv_director"

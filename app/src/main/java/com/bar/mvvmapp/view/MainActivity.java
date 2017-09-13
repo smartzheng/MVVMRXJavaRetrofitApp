@@ -2,15 +2,15 @@ package com.bar.mvvmapp.view;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.bar.mvvmapp.R;
 import com.bar.mvvmapp.databinding.ActivityMainBinding;
 import com.bar.mvvmapp.viewmodel.MainViewModel;
+import com.zhy.autolayout.AutoLayoutActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AutoLayoutActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

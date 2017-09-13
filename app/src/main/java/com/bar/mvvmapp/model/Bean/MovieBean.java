@@ -1,5 +1,7 @@
 package com.bar.mvvmapp.model.Bean;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;
 
@@ -9,15 +11,16 @@ import java.util.List;
 
 /**
  * Created by smartzheng on 2017/9/12.
+ * 这里使用GsonFormat自动生成，databinding还提供了可以免去写set/get方法的写法，统一格式，很简单，这里不实现了
  */
 
-public class MovieBean {
+public class MovieBean extends BaseObservable{
     private int count;//请求的个数
     private int start;
     private String title;
     private int total;//总数
     private List<SubjectsBean> subjects;
-
+    @Bindable
     public int getCount() {
         return count;
     }
@@ -25,7 +28,7 @@ public class MovieBean {
     public void setCount(int count) {
         this.count = count;
     }
-
+    @Bindable
     public int getStart() {
         return start;
     }
@@ -33,7 +36,7 @@ public class MovieBean {
     public void setStart(int start) {
         this.start = start;
     }
-
+    @Bindable
     public String getTitle() {
         return title;
     }
@@ -41,7 +44,7 @@ public class MovieBean {
     public void setTitle(String title) {
         this.title = title;
     }
-
+    @Bindable
     public int getTotal() {
         return total;
     }
@@ -49,7 +52,7 @@ public class MovieBean {
     public void setTotal(int total) {
         this.total = total;
     }
-
+    @Bindable
     public List<SubjectsBean> getSubjects() {
         return subjects;
     }
@@ -58,14 +61,10 @@ public class MovieBean {
         this.subjects = subjects;
     }
 
-    public static class SubjectsBean {
-        private String alt;
-        private int collect_count;
-        private String id;
+    public static class SubjectsBean extends BaseObservable{
+
         private ImagesBean images;
-        private String original_title;
         private Rating rating;
-        private String subtype;
         private String title;
         private String year;
         private List<CastsBean> casts;
@@ -79,40 +78,17 @@ public class MovieBean {
                     .into(imageView);
 
         }
+        @Bindable
         public String getCastsString() {
             return casts2StringBySlash(casts);
         }
-
+        @Bindable
         public String getDirectorsString() {
             return directors2StringBySlash(directors);
         }
 
-        private List<String> genres;
 
-        public String getAlt() {
-            return alt;
-        }
-
-        public void setAlt(String alt) {
-            this.alt = alt;
-        }
-
-        public int getCollect_count() {
-            return collect_count;
-        }
-
-        public void setCollect_count(int collect_count) {
-            this.collect_count = collect_count;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
+        @Bindable
         public ImagesBean getImages() {
             return images;
         }
@@ -121,14 +97,8 @@ public class MovieBean {
             this.images = images;
         }
 
-        public String getOriginal_title() {
-            return original_title;
-        }
 
-        public void setOriginal_title(String original_title) {
-            this.original_title = original_title;
-        }
-
+        @Bindable
         public Rating getRating() {
             return rating;
         }
@@ -137,14 +107,7 @@ public class MovieBean {
             this.rating = rating;
         }
 
-        public String getSubtype() {
-            return subtype;
-        }
-
-        public void setSubtype(String subtype) {
-            this.subtype = subtype;
-        }
-
+        @Bindable
         public String getTitle() {
             return title;
         }
@@ -152,7 +115,7 @@ public class MovieBean {
         public void setTitle(String title) {
             this.title = title;
         }
-
+        @Bindable
         public String getYear() {
             return year;
         }
@@ -160,7 +123,7 @@ public class MovieBean {
         public void setYear(String year) {
             this.year = year;
         }
-
+        @Bindable
         public List<CastsBean> getCasts() {
             return casts;
         }
@@ -168,7 +131,7 @@ public class MovieBean {
         public void setCasts(List<CastsBean> casts) {
             this.casts = casts;
         }
-
+        @Bindable
         public List<DirectorsBean> getDirectors() {
             return directors;
         }
@@ -177,15 +140,8 @@ public class MovieBean {
             this.directors = directors;
         }
 
-        public List<String> getGenres() {
-            return genres;
-        }
 
-        public void setGenres(List<String> genres) {
-            this.genres = genres;
-        }
-
-        public static class ImagesBean {
+        public static class ImagesBean extends BaseObservable{
             /**
              * large : https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2460006593.webp
              * medium : https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2460006593.webp
@@ -193,9 +149,8 @@ public class MovieBean {
              */
 
             private String large;
-            private String medium;
-            private String small;
 
+            @Bindable
             public String getLarge() {
                 return large;
             }
@@ -204,71 +159,25 @@ public class MovieBean {
                 this.large = large;
             }
 
-            public String getMedium() {
-                return medium;
-            }
-
-            public void setMedium(String medium) {
-                this.medium = medium;
-            }
-
-            public String getSmall() {
-                return small;
-            }
-
-            public void setSmall(String small) {
-                this.small = small;
-            }
         }
 
-        public static class Rating {
-            /**
-             * average : 8
-             * max : 10
-             * min : 0
-             * stars : 40
-             */
+        public static class Rating extends BaseObservable{
 
-            private double average;
-            private double max;
-            private double min;
-            private String stars;
+            private float average;
 
-            public double getAverage() {
+            @Bindable
+            public float getAverage() {
                 return average;
             }
 
-            public void setAverage(double average) {
+            public void setAverage(float average) {
                 this.average = average;
             }
 
-            public double getMax() {
-                return max;
-            }
-
-            public void setMax(int max) {
-                this.max = max;
-            }
-
-            public double getMin() {
-                return min;
-            }
-
-            public void setMin(int min) {
-                this.min = min;
-            }
-
-            public String getStars() {
-                return stars;
-            }
-
-            public void setStars(String stars) {
-                this.stars = stars;
-            }
         }
     }
 
-    public static class CastsBean {
+    public static class CastsBean extends BaseObservable {
         /**
          * alt : https://movie.douban.com/celebrity/1054395/
          * avatars : {"large":"https://img1.doubanio.com/img/celebrity/large/51597.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/51597.jpg","small":"https://img1.doubanio.com/img/celebrity/small/51597.jpg"}
@@ -276,35 +185,9 @@ public class MovieBean {
          * name : 伊利亚·伍德
          */
 
-        private String alt;
-        private AvatarsBean avatars;
-        private String id;
         private String name;
 
-        public String getAlt() {
-            return alt;
-        }
-
-        public void setAlt(String alt) {
-            this.alt = alt;
-        }
-
-        public AvatarsBean getAvatars() {
-            return avatars;
-        }
-
-        public void setAvatars(AvatarsBean avatars) {
-            this.avatars = avatars;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
+        @Bindable
         public String getName() {
             return name;
         }
@@ -312,45 +195,9 @@ public class MovieBean {
         public void setName(String name) {
             this.name = name;
         }
-
-        public static class AvatarsBean {
-            /**
-             * large : https://img1.doubanio.com/img/celebrity/large/51597.jpg
-             * medium : https://img1.doubanio.com/img/celebrity/medium/51597.jpg
-             * small : https://img1.doubanio.com/img/celebrity/small/51597.jpg
-             */
-
-            private String large;
-            private String medium;
-            private String small;
-
-            public String getLarge() {
-                return large;
-            }
-
-            public void setLarge(String large) {
-                this.large = large;
-            }
-
-            public String getMedium() {
-                return medium;
-            }
-
-            public void setMedium(String medium) {
-                this.medium = medium;
-            }
-
-            public String getSmall() {
-                return small;
-            }
-
-            public void setSmall(String small) {
-                this.small = small;
-            }
-        }
     }
 
-    public static class DirectorsBean {
+    public static class DirectorsBean extends BaseObservable{
         /**
          * alt : https://movie.douban.com/celebrity/1276787/
          * avatars : {"large":"https://img3.doubanio.com/img/celebrity/large/1351678808.44.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/1351678808.44.jpg","small":"https://img3.doubanio.com/img/celebrity/small/1351678808.44.jpg"}
@@ -358,35 +205,10 @@ public class MovieBean {
          * name : 申·阿克
          */
 
-        private String alt;
-        private AvatarsBeanX avatars;
-        private String id;
+
         private String name;
 
-        public String getAlt() {
-            return alt;
-        }
-
-        public void setAlt(String alt) {
-            this.alt = alt;
-        }
-
-        public AvatarsBeanX getAvatars() {
-            return avatars;
-        }
-
-        public void setAvatars(AvatarsBeanX avatars) {
-            this.avatars = avatars;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
+        @Bindable
         public String getName() {
             return name;
         }
@@ -395,41 +217,6 @@ public class MovieBean {
             this.name = name;
         }
 
-        public static class AvatarsBeanX {
-            /**
-             * large : https://img3.doubanio.com/img/celebrity/large/1351678808.44.jpg
-             * medium : https://img3.doubanio.com/img/celebrity/medium/1351678808.44.jpg
-             * small : https://img3.doubanio.com/img/celebrity/small/1351678808.44.jpg
-             */
-
-            private String large;
-            private String medium;
-            private String small;
-
-            public String getLarge() {
-                return large;
-            }
-
-            public void setLarge(String large) {
-                this.large = large;
-            }
-
-            public String getMedium() {
-                return medium;
-            }
-
-            public void setMedium(String medium) {
-                this.medium = medium;
-            }
-
-            public String getSmall() {
-                return small;
-            }
-
-            public void setSmall(String small) {
-                this.small = small;
-            }
-        }
     }
     public static String directors2StringBySlash(List<DirectorsBean> list) {
         String s = "";

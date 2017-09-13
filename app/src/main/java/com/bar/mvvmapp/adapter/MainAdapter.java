@@ -12,7 +12,6 @@ import com.bar.mvvmapp.model.Bean.MovieBean;
 import java.util.List;
 
 
-
 /**
  * Created by smartzheng on 2017/6/5.
  */
